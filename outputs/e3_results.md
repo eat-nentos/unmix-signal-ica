@@ -1,12 +1,11 @@
-# E3 � Fingerprint quality vs music weight in A
+# E3 without noise — mean over 3 seeds
 
-| Music weight | Mix best | Mix score | Mix conf | ICA best | ICA score | ICA conf |
-|---|---|---|---|---|---|---|
-| 1.000 | anchor_track | 60 | 20.00 | anchor_track | 739 | 184.75 |
-| 0.700 | anchor_track | 25 | 12.50 | anchor_track | 739 | 184.75 |
-| 0.500 | anchor_track | 10 | 3.33 | anchor_track | 739 | 184.75 |
-| 0.300 | anchor_track | 5 | 2.50 | anchor_track | 739 | 184.75 |
-| 0.200 | anchor_track | 3 | 1.50 | anchor_track | 739 | 184.75 |
-| 0.100 | guitar | 3 | 1.50 | anchor_track | 739 | 184.75 |
-| 0.050 | guitar | 3 | 1.50 | anchor_track | 739 | 184.75 |
-| 0.020 | guitar | 3 | 1.50 | anchor_track | 739 | 184.75 |
+*Score threshold for 'identified': rank-1 AND score >= 10.*
+
+| Music weight | Mix top-1 | Mix score | ICA top-1 | ICA score | ICA \|corr\| to music |
+|---|---|---|---|---|---|
+| 1.00 | 1.00 | 60.0 ± 0.0 | 1.00 | 739.0 ± 0.0 | 1.000 ± 0.000 |
+| 0.50 | 1.00 | 10.0 ± 0.0 | 1.00 | 739.0 ± 0.0 | 1.000 ± 0.000 |
+| 0.25 | 0.00 | 3.0 ± 0.0 | 1.00 | 739.0 ± 0.0 | 1.000 ± 0.000 |
+| 0.10 | 0.00 | 3.0 ± 0.0 | 1.00 | 739.0 ± 0.0 | 1.000 ± 0.000 |
+| 0.02 | 0.00 | 3.0 ± 0.0 | 1.00 | 739.0 ± 0.0 | 1.000 ± 0.000 |

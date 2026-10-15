@@ -23,7 +23,7 @@ def mix(S, A):
     return A @ S
 
 
-def run_pipeline(S, A=None, n_restarts=5, seed=0):
+def run_pipeline(S, A=None, n_restarts=5, seed=0, snr_db=None):
     """
     Run the whole separation pipeline on sources S (shape N x T).
 
@@ -56,6 +56,12 @@ def run_pipeline(S, A=None, n_restarts=5, seed=0):
     # 1. Mix
     X = mix(S, A)
 
+    if snr_db is not None:
+        rng = np.random.default_rng(seed)
+        sig_pow = (X ** 2).mean(axis=1, keepdims=True)
+        noise_pow = sig_pow / (10 ** (snr_db / 10))
+        X = X + rng.normal(0, np.sqrt(noise_pow), size=X.shape)
+        
     # 2. Center + whiten
     Xc, _ = center(X)
     Z, W_white = pca_whiten(Xc)
