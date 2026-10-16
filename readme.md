@@ -58,6 +58,22 @@ The pipeline:
 
 **ICA has three ambiguities:** the order of the outputs (permutation), their scale, and their sign. The evaluation handles all three (section 3.5).
 
+### ICA as an optimization problem
+
+FastICA is an optimization method, so the usual training vocabulary applies:
+
+| ML term | In this project |
+|---|---|
+| Model | The unmixing matrix `W`; the estimated sources are `W @ Z` |
+| Objective ("loss") | Maximize non-Gaussianity, `J(W) = sum of E[log cosh(w.T z)]` (equivalently minimize `-J`) |
+| Constraint | `W` stays orthogonal, enforced by symmetric decorrelation |
+| Optimizer | A fixed-point (Newton-type) update, using the derivative `tanh` |
+| Iteration | One pass of the update, up to `max_iter = 2000` |
+| Convergence criterion | Change in `W` between iterations below `tol = 1e-5` |
+| Initialization and restarts | Random orthogonal `W`; 5 restarts because the objective is non-convex |
+| Hyperparameters | Nonlinearity, `tol`, `max_iter`, number of restarts |
+| Labels | None. This is unsupervised; ground truth is used only for evaluation |
+| Metrics | Matched \|corr\| and the Shazam score |
 ---
 
 ## 3. Pipeline in detail
@@ -204,11 +220,11 @@ Gaussian noise is added to the mixtures at the stated SNR **before** centering, 
 
 | SNR (dB) | FastICA | PCA |
 |---|---|---|
-| 30 | 0.996 | 0.784 |
-| 20 | 0.954 ± 0.015 | 0.758 |
-| 10 | 0.691 ± 0.009 | 0.606 |
-| 5 | 0.560 ± 0.008 | 0.476 |
-| 0 | 0.386 ± 0.006 | 0.362 |
+| 30 | 0.995 ± 0.000 | 0.784 ± 0.000 |
+| 20 | 0.961 ± 0.003 | 0.758 ± 0.000 |
+| 10 | 0.691 ± 0.009 | 0.606 ± 0.001 |
+| 5 | 0.560 ± 0.008 | 0.476 ± 0.001 |
+| 0 | 0.386 ± 0.006 | 0.362 ± 0.001 |
 
 FastICA stays above 0.95 down to 20 dB, then degrades steadily. It is better than PCA at every noise level, but at 0 dB the gap is small. At N = 2 (speech and music only) the same sweep stays higher: 0.999, 0.986, 0.889, 0.752 and 0.566 at the same SNRs, so more sources makes noise more damaging.
 
