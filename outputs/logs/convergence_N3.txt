@@ -1,0 +1,8 @@
+FastICA convergence log, N=3, tol=1e-05, max_iter=2000
+
+restart  seed  iters  converged  final_score(sum|kurt|)
+      1     0   1098       True  17.9832
+      2     1    191       True  17.9703
+      3     2   1074       True  17.9867  <- best
+      4     3    183       True  17.9697
+      5     4    251       True  17.9864
