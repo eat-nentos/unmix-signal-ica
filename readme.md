@@ -304,6 +304,8 @@ What this shows:
 - **Probable cause (not proven):** FastICA's update uses an approximation for the curvature term, and tanh may be a poor fit for these bursty, heavy-tailed sources.
 - **Next step, not done here:** try other nonlinearities (Gaussian or cubic) and rerun the experiments.
 
+**What I observed.** I expected FastICA to stop after about 50 iterations. Several restarts ran for hundreds or thousands, and when I let one run to the 2,000-iteration cap, different iterations gave different values. That showed the tanh iteration wanders around the solution instead of settling. The results are still valid, because I checked them against the true sources.
+
 Because the result depends on the iteration landing on the solution, a run that hit the iteration cap would return an arbitrary state. The runs here were verified against ground truth, which would not be available in real use.
 
 Logs for each N are in [`outputs/logs/`](outputs/logs/). The per-restart convergence plots are in `outputs/N=<n>/figures/convergence.png`.
